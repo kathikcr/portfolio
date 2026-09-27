@@ -1,0 +1,147 @@
+.footer {
+  border-top: 1px solid var(--col-border);
+  background: var(--col-bg);
+  padding: var(--sp-8) 0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.copy {
+  font-size: var(--fs-xs);
+  color: var(--col-text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.creditsBtn {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-text-tertiary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  transition: color var(--dur-normal);
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: var(--r-sm);
+}
+
+.creditsBtn:hover { color: var(--col-text-secondary); }
+
+/* Modal */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-6);
+}
+
+.modal {
+  background: var(--col-bg-elevated);
+  border: 1px solid var(--col-border-mid);
+  border-radius: var(--r-xl);
+  padding: var(--sp-8);
+  width: 100%;
+  max-width: 560px;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalTitle {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semi);
+  color: var(--col-text-primary);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--col-text-tertiary);
+  cursor: pointer;
+  font-size: var(--fs-md);
+  padding: var(--sp-1);
+  transition: color var(--dur-normal);
+  line-height: 1;
+}
+
+.closeBtn:hover { color: var(--col-text-primary); }
+
+.creditList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  list-style: none;
+}
+
+.creditItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--col-border);
+}
+
+.creditItem:last-child { border-bottom: none; }
+
+.creditName {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--col-text-primary);
+}
+
+.creditMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.creditCreator {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-text-secondary);
+}
+
+.creditLink,
+.creditLicense {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-normal);
+}
+
+.creditLink:hover,
+.creditLicense:hover {
+  border-bottom-color: var(--col-accent);
+}
+
+.creditsNote {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-text-tertiary);
+  line-height: var(--lh-loose);
+  padding: var(--sp-4);
+  background: var(--col-glass);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-md);
+}

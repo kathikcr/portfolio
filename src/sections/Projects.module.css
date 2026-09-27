@@ -1,0 +1,29 @@
+.section {
+  background: var(--col-bg);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-20);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  max-width: 640px;
+}
+
+.headline { color: var(--col-text-primary); }
+
+.sub {
+  font-size: var(--fs-md);
+  color: var(--col-text-secondary);
+  line-height: var(--lh-loose);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}

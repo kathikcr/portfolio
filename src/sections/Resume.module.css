@@ -1,0 +1,265 @@
+.section {
+  background: var(--col-bg-surface);
+  position: relative;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-4);
+  max-width: var(--max-text);
+}
+
+.headline {
+  color: var(--col-text-primary);
+}
+
+.sub {
+  font-size: var(--fs-md);
+  color: var(--col-text-secondary);
+  line-height: var(--lh-loose);
+}
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 800px;
+  background: rgba(14, 22, 48, 0.6);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-xl);
+  padding: var(--sp-8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  transition: border-color var(--dur-normal) var(--ease-out);
+}
+
+.card:hover {
+  border-color: rgba(79, 142, 247, 0.35);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--col-border);
+}
+
+.candidateInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.candidateName {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--col-text-primary);
+}
+
+.candidateRole {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-accent);
+  letter-spacing: var(--ls-wide);
+}
+
+.pdfBadge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--col-text-tertiary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--col-border);
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  letter-spacing: var(--ls-wide);
+}
+
+/* Highlights Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.gridLabel {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-text-tertiary);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.gridValue {
+  font-size: var(--fs-sm);
+  color: var(--col-text-primary);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-medium);
+}
+
+/* Experience Block */
+.experienceBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--col-border);
+}
+
+.experienceTitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-accent);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+}
+
+.expList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.expItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  background: rgba(255, 255, 255, 0.02);
+  padding: var(--sp-4);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-md);
+}
+
+.expHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.expRole {
+  font-size: var(--fs-sm);
+  color: var(--col-text-primary);
+}
+
+.expOrg {
+  color: var(--col-accent);
+  font-weight: var(--fw-semibold);
+}
+
+.expPeriod {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-text-tertiary);
+}
+
+.expPoints {
+  list-style: disc;
+  padding-left: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.expPoint {
+  font-size: var(--fs-xs);
+  color: var(--col-text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+/* Footer & Buttons */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--col-border);
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: #fff;
+  background: var(--col-accent);
+  border: 1px solid var(--col-accent);
+  border-radius: var(--r-sm);
+  padding: var(--sp-3) var(--sp-6);
+  text-decoration: none;
+  letter-spacing: var(--ls-snug);
+  transition:
+    background var(--dur-normal) var(--ease-out),
+    box-shadow var(--dur-normal) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.primaryBtn:hover {
+  background: #6fa1f9;
+  box-shadow: 0 0 28px var(--col-accent-glow);
+}
+
+.primaryBtn:active { transform: scale(0.97); }
+
+.downloadBtn {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--col-text-secondary);
+  background: transparent;
+  border: 1px solid var(--col-border-mid);
+  border-radius: var(--r-sm);
+  padding: var(--sp-3) var(--sp-6);
+  text-decoration: none;
+  letter-spacing: var(--ls-snug);
+  transition:
+    color var(--dur-normal) var(--ease-out),
+    border-color var(--dur-normal) var(--ease-out),
+    background var(--dur-normal) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.downloadBtn:hover {
+  color: var(--col-text-primary);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: var(--col-glass);
+}
+
+.downloadBtn:active { transform: scale(0.97); }
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-4);
+  }
+  .cardFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .primaryBtn,
+  .downloadBtn {
+    justify-content: center;
+  }
+}

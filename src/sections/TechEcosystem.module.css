@@ -1,0 +1,314 @@
+.section {
+  background: var(--col-bg-subtle);
+  position: relative;
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-10);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-width: 720px;
+}
+
+.headline {
+  color: var(--col-text-primary);
+}
+
+.sub {
+  font-size: var(--fs-md);
+  color: var(--col-text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+/* 2-column balanced grid */
+.body {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--sp-8);
+  align-items: flex-start;
+}
+
+/* Category buttons list */
+.categoriesNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.catBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--col-card);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-align: left;
+  transition: all var(--dur-normal) var(--ease-out);
+}
+
+.catLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.catIndex {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-text-tertiary);
+  transition: color var(--dur-normal);
+}
+
+.catLabel {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--col-text-secondary);
+  transition: color var(--dur-normal);
+}
+
+.catRight {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.catPillCount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--col-text-tertiary);
+  background: var(--col-glass);
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--col-border);
+  transition: all var(--dur-normal);
+}
+
+.catArrow {
+  color: var(--col-accent);
+  font-size: var(--fs-sm);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--dur-normal), transform var(--dur-normal) var(--ease-out);
+}
+
+.catBtn:hover {
+  background: var(--col-glass);
+  border-color: var(--col-border-strong);
+  transform: translateX(3px);
+}
+
+.catBtn:hover .catLabel {
+  color: var(--col-text-primary);
+}
+
+.catBtn:hover .catArrow,
+.catActive .catArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.catActive {
+  background: rgba(79, 142, 247, 0.08);
+  border-color: var(--col-accent);
+  box-shadow: 0 0 24px -6px rgba(79, 142, 247, 0.25);
+}
+
+.catActive .catIndex {
+  color: var(--col-accent);
+  font-weight: var(--fw-semibold);
+}
+
+.catActive .catLabel {
+  color: var(--col-text-primary);
+  font-weight: var(--fw-semibold);
+}
+
+.catActive .catPillCount {
+  background: rgba(79, 142, 247, 0.15);
+  border-color: var(--col-accent);
+  color: var(--col-accent);
+}
+
+/* Right: Rich detail card */
+.detailCard {
+  background: var(--col-card);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-8);
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  border-bottom: 1px solid var(--col-border);
+  padding-bottom: var(--sp-6);
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.specBadge {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--col-accent);
+  font-weight: var(--fw-semibold);
+}
+
+.techCount {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--col-text-tertiary);
+  background: var(--col-glass);
+  border: 1px solid var(--col-border);
+  padding: 3px 12px;
+  border-radius: var(--r-full);
+}
+
+.domainTitle {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  color: var(--col-text-primary);
+  letter-spacing: var(--ls-tight);
+}
+
+.domainDesc {
+  font-size: var(--fs-base);
+  color: var(--col-text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+/* Highlights section */
+.highlightsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.sectionHeading {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--col-text-tertiary);
+}
+
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--sp-3);
+}
+
+.highlightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--col-bg-subtle);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-md);
+}
+
+.highlightIcon {
+  font-size: var(--fs-sm);
+  color: var(--col-accent);
+  line-height: 1.4;
+}
+
+.highlightText {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--col-text-primary);
+  line-height: var(--lh-snug);
+}
+
+/* Technologies Grid */
+.techSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.tagsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--sp-3);
+}
+
+.tagItem {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--col-glass);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-md);
+  transition: all var(--dur-normal) var(--ease-out);
+}
+
+.tagItem:hover {
+  border-color: var(--col-accent);
+  background: rgba(79, 142, 247, 0.08);
+  transform: translateY(-2px);
+}
+
+.tagDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--col-accent);
+  box-shadow: 0 0 8px var(--col-accent);
+  flex-shrink: 0;
+}
+
+.tagName {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--col-text-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .detailCard {
+    padding: var(--sp-5);
+  }
+  .tagsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+  .highlightsGrid {
+    grid-template-columns: 1fr;
+  }
+}

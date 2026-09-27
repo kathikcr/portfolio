@@ -1,0 +1,206 @@
+.section {
+  background: var(--col-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background neural network */
+.bgCanvas {
+  position: absolute;
+  right: -8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45%;
+  height: 100%;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-20);
+  align-items: start;
+}
+
+/* Text side */
+.textSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.headline { color: var(--col-text-primary); }
+
+.sub {
+  font-size: var(--fs-md);
+  color: var(--col-text-secondary);
+  line-height: var(--lh-loose);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.contactLink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-5) var(--sp-5);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-md);
+  text-decoration: none;
+  background: var(--col-glass);
+  transition:
+    background var(--dur-normal),
+    border-color var(--dur-normal),
+    transform var(--dur-fast);
+}
+
+.contactLink:hover {
+  background: var(--col-bg-elevated);
+  border-color: var(--col-accent);
+  transform: translateX(4px);
+}
+
+.contactLinkLabel {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--col-accent);
+}
+
+.contactLinkDisplay {
+  font-size: var(--fs-sm);
+  color: var(--col-text-secondary);
+  transition: color var(--dur-normal);
+}
+
+.contactLink:hover .contactLinkDisplay {
+  color: var(--col-text-primary);
+}
+
+/* Form side */
+.formSide {
+  padding-top: var(--sp-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--col-text-tertiary);
+}
+
+.input {
+  width: 100%;
+  padding: var(--sp-4);
+  background: var(--col-bg-subtle);
+  border: 1px solid var(--col-border);
+  border-radius: var(--r-md);
+  color: var(--col-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  outline: none;
+  transition:
+    border-color var(--dur-normal),
+    background var(--dur-normal);
+  resize: none;
+}
+
+.input::placeholder {
+  color: var(--col-text-tertiary);
+}
+
+.input:focus {
+  border-color: var(--col-accent);
+  background: var(--col-bg-elevated);
+  box-shadow: 0 0 0 3px var(--col-accent-subtle);
+}
+
+.textarea {
+  min-height: 120px;
+  line-height: var(--lh-loose);
+}
+
+.submitBtn {
+  align-self: flex-start;
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-snug);
+  color: #fff;
+  background: var(--col-accent);
+  border: 1px solid var(--col-accent);
+  border-radius: var(--r-sm);
+  padding: var(--sp-4) var(--sp-8);
+  cursor: pointer;
+  transition:
+    background var(--dur-normal),
+    box-shadow var(--dur-normal),
+    transform var(--dur-fast);
+}
+
+.submitBtn:hover {
+  background: #6fa1f9;
+  box-shadow: 0 0 24px var(--col-accent-glow);
+}
+
+.submitBtn:active { transform: scale(0.97); }
+
+/* Success */
+.successMsg {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-8);
+  background: var(--col-bg-elevated);
+  border: 1px solid rgba(79,142,247,.3);
+  border-radius: var(--r-lg);
+  color: var(--col-text-secondary);
+  font-size: var(--fs-md);
+  line-height: var(--lh-loose);
+}
+
+.successIcon {
+  font-size: var(--fs-xl);
+  color: var(--col-accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .bgCanvas { width: 50%; opacity: 0.08; }
+}
+
+@media (max-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: var(--sp-12);
+  }
+  .bgCanvas { display: none; }
+  .formRow { grid-template-columns: 1fr; }
+}

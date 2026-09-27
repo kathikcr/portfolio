@@ -1,0 +1,78 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(14, 23, 38, 0.9) 0%, rgba(5, 10, 20, 0.98) 100%);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid rgba(79, 142, 247, 0.2);
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(79, 142, 247, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(79, 142, 247, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.svg {
+  width: 90%;
+  height: 90%;
+  max-width: 440px;
+  z-index: 2;
+  filter: drop-shadow(0 0 12px rgba(79, 142, 247, 0.25));
+}
+
+.scanLine {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+  box-shadow: 0 0 8px #00e5ff;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.pulseDot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #00e5ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00e5ff;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.radarPing {
+  position: absolute;
+  left: 48%;
+  top: 45%;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  border: 2px solid #00e5ff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.serverActivity {
+  position: absolute;
+  bottom: 24px;
+  left: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #4f8ef7, #00e5ff);
+  box-shadow: 0 0 10px #00e5ff;
+  border-radius: 2px;
+  z-index: 3;
+}

@@ -1,0 +1,155 @@
+@import './styles/tokens.css';
+
+/* ── RESET ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--nav-height) + 24px);
+}
+
+section[id] {
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  color: var(--col-text-primary);
+  background-color: var(--col-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--col-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--col-text-tertiary);
+  border-radius: var(--r-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--col-text-secondary); }
+
+/* ── SELECTION ───────────────────────────────────────────── */
+::selection {
+  background: var(--col-accent-subtle);
+  color: var(--col-text-primary);
+}
+
+/* ── FOCUS STATES ────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--col-accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* ── UTILITIES ───────────────────────────────────────────── */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-content);
+  margin-inline: auto;
+  padding-inline: var(--sp-8);
+}
+
+@media (max-width: 768px) {
+  .container { padding-inline: var(--sp-6); }
+}
+@media (max-width: 480px) {
+  .container { padding-inline: var(--sp-4); }
+}
+
+/* ── TYPOGRAPHY HELPERS ─────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--col-accent);
+}
+
+.section-headline {
+  font-size: var(--fs-4xl);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+}
+
+@media (max-width: 768px) {
+  .section-headline { font-size: var(--fs-3xl); }
+}
+@media (max-width: 480px) {
+  .section-headline { font-size: var(--fs-2xl); }
+}
+
+/* ── REDUCED MOTION ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ── GLOBAL SECTION LAYOUT ───────────────────────────────── */
+.section {
+  position: relative;
+  padding-block: var(--sp-48);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .section { padding-block: var(--sp-24); }
+}
+
+/* ── CANVAS WRAPPER ─────────────────────────────────────── */
+.canvas-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.canvas-wrapper.interactive {
+  pointer-events: auto;
+}
+
+/* ── DIVIDER ─────────────────────────────────────────────── */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--col-border-mid) 20%,
+    var(--col-border-mid) 80%,
+    transparent 100%
+  );
+}
+
+/* ── SMOOTH SCROLL WRAPPER ───────────────────────────────── */
+#smooth-wrapper {
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+}
+
+#smooth-content {
+  will-change: transform;
+}
