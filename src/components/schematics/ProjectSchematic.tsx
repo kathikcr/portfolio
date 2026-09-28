@@ -4,9 +4,10 @@ import styles from './ProjectSchematic.module.css';
 interface SchematicProps {
   theme: 'medical' | 'document' | 'iot-tracking' | 'systems';
   title: string;
+  active?: boolean;
 }
 
-export function ProjectSchematic({ theme, title: _title }: SchematicProps) {
+export function ProjectSchematic({ theme, title: _title, active = true }: SchematicProps) {
   if (theme === 'medical') {
     return (
       <div className={styles.container}>
@@ -42,11 +43,11 @@ export function ProjectSchematic({ theme, title: _title }: SchematicProps) {
         </svg>
 
         {/* Live scanning line */}
-        <motion.div
+        {active && <motion.div
           className={styles.scanLine}
           animate={{ y: [0, 280, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-        />
+        />}
       </div>
     );
   }
@@ -93,12 +94,12 @@ export function ProjectSchematic({ theme, title: _title }: SchematicProps) {
         </svg>
 
         {/* Pulsing data packets */}
-        <motion.div
+        {active && <motion.div
           className={styles.pulseDot}
           style={{ left: '20%', top: '50%' }}
           animate={{ x: [0, 80, 160, 240, 160, 80, 0], y: [0, -60, -60, 0, 60, 60, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        />}
       </div>
     );
   }
@@ -139,11 +140,11 @@ export function ProjectSchematic({ theme, title: _title }: SchematicProps) {
         </svg>
 
         {/* Concentric Radar Ping */}
-        <motion.div
+        {active && <motion.div
           className={styles.radarPing}
           animate={{ scale: [0.2, 2.2], opacity: [0.8, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
-        />
+        />}
       </div>
     );
   }
@@ -182,11 +183,11 @@ export function ProjectSchematic({ theme, title: _title }: SchematicProps) {
       </svg>
 
       {/* Activity Pulse bar */}
-      <motion.div
+      {active && <motion.div
         className={styles.serverActivity}
         animate={{ width: ['20%', '85%', '45%', '95%', '60%'] }}
         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      />}
     </div>
   );
 }

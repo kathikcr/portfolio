@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { projects } from '../data/projects';
 import { ProjectCard } from './ProjectCard';
 import { Reveal } from '../components/ui/Reveal';
 import styles from './Projects.module.css';
 
 export function Projects() {
+  const [activeModelId, setActiveModelId] = useState<string | null>(null);
+
   return (
     <section id="projects" className={`section ${styles.section}`} aria-label="Projects">
       <div className={`container ${styles.inner}`}>
@@ -31,6 +34,8 @@ export function Projects() {
               project={project}
               index={i}
               reversed={i % 2 === 1}
+              activeModelId={activeModelId}
+              onSelectModel={setActiveModelId}
             />
           ))}
         </div>

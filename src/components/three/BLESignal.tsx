@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import type { MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { MathUtils } from 'three';
@@ -10,38 +11,38 @@ interface BLESignalProps {
 }
 
 export function BLESignalRings({
-  center = [0, -0.2, 0],
+  center = [0, 0.1, -0.1],
   rings = 3,
   color = '#4f8ef7',
 }: BLESignalProps) {
-  const groupRef = useRef<THREE.Group>(null);
-  const time = useRef(0);
-
-  useFrame((_, delta) => {
-    time.current += delta;
-  });
-
-  const ringRadii = Array.from({ length: rings }, (_, i) => 0.7 + i * 0.5);
+  const ringRefs = useRef<(THREE.Mesh | null)[]>([]);
 
   return (
-    <group ref={groupRef} position={center} rotation={[-Math.PI / 2, 0, 0]}>
-      {ringRadii.map((r, i) => (
-        <mesh key={i}>
-          <ringGeometry args={[r - 0.015, r + 0.015, 48]} />
-          <meshBasicMaterial
-            color={color}
-            transparent
-            opacity={MathUtils.clamp(
-              0.2 + Math.sin(time.current * 1.5 - i * 0.9) * 0.2,
-              0.05,
-              0.4
-            )}
-            side={THREE.DoubleSide}
-          />
+    <group position={center}>
+      {Array.from({ length: rings }, (_, i) => (
+        <mesh key={i} ref={(mesh) => { ringRefs.current[i] = mesh; }}>
+          <ringGeometry args={[0.88, 0.92, 64]} />
+          <meshBasicMaterial color={color} transparent opacity={0} side={THREE.DoubleSide} />
         </mesh>
       ))}
+      <SignalAnimator ringRefs={ringRefs} rings={rings} />
     </group>
   );
+}
+
+function SignalAnimator({ ringRefs, rings }: { ringRefs: MutableRefObject<(THREE.Mesh | null)[]>; rings: number }) {
+  const time = useRef(0);
+  useFrame((_, delta) => {
+    time.current = (time.current + delta * 0.52) % 1;
+    ringRefs.current.forEach((ring, index) => {
+      if (!ring) return;
+      const phase = (time.current + index / rings) % 1;
+      const scale = 0.16 + phase * 1.15;
+      ring.scale.setScalar(scale);
+      (ring.material as THREE.MeshBasicMaterial).opacity = (1 - phase) * 0.72;
+    });
+  });
+  return null;
 }
 
 /* Animated data packet travelling between two points */

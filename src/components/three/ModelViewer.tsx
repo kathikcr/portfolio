@@ -1,9 +1,10 @@
 import React, { Suspense, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useGLTF, Environment, OrbitControls } from '@react-three/drei';
+import { useGLTF, OrbitControls, Bounds, Center, Html, useProgress } from '@react-three/drei';
 import * as THREE from 'three';
 import type { Group } from 'three';
 import type { GLTF } from 'three-stdlib';
+import { ErrorBoundary } from '../ui/ErrorBoundary';
 
 /* ── Prop types ─────────────────────────────────────────── */
 export interface ModelViewerProps {
@@ -41,18 +42,20 @@ function GLBModel({
 
   return (
     <group ref={group} position={position} rotation={rotation} scale={s as [number,number,number]}>
-      <primitive object={gltf.scene} />
+      <primitive object={gltf.scene.clone(true)} />
     </group>
   );
 }
 
 /* ── Fallback while loading ─────────────────────────────── */
 function ModelFallback() {
+  const { progress } = useProgress();
   return (
-    <mesh>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#1a1a24" wireframe />
-    </mesh>
+    <Html center>
+      <div style={{ padding: '0.55rem 0.8rem', border: '1px solid rgba(79,142,247,.3)', borderRadius: '999px', background: 'rgba(8,13,22,.88)', color: '#aab5ca', whiteSpace: 'nowrap', font: '11px ui-monospace, monospace', letterSpacing: '.04em' }}>
+        Loading 3D model · {Math.round(progress)}%
+      </div>
+    </Html>
   );
 }
 
@@ -73,41 +76,52 @@ export function ModelViewer({
   children,
 }: ModelViewerProps) {
   return (
-    <Canvas
-      className={className}
-      style={{ background: 'transparent', ...style }}
-      camera={{ position: cameraPosition, fov }}
-      dpr={[1, 1.5]}
-      gl={{ antialias: true, alpha: true }}
-    >
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={0.8} castShadow={false} />
-      <directionalLight position={[-5, -2, -5]} intensity={0.2} color="#4f8ef7" />
-
-      <Environment preset="studio" />
-
-      <Suspense fallback={<ModelFallback />}>
-        <GLBModel
-          src={src}
-          scale={scale}
-          position={position}
-          rotation={rotation}
-          onLoaded={onLoaded}
-        />
-        {children}
-      </Suspense>
-
-      {enableControls && (
-        <OrbitControls
-          autoRotate={autoRotate}
-          autoRotateSpeed={autoRotateSpeed}
-          enablePan={false}
-          enableZoom={false}
-          minPolarAngle={Math.PI / 4}
-          maxPolarAngle={(Math.PI * 3) / 4}
-        />
+    <ErrorBoundary
+      fallback={(
+        <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', padding: '1rem', color: '#aab5ca', background: '#080d16', textAlign: 'center', fontSize: '0.85rem' }}>
+          This 3D preview could not load. Switch to Blueprint to view the project architecture.
+        </div>
       )}
-    </Canvas>
+    >
+      <Canvas
+        className={className}
+        style={{ background: 'transparent', ...style }}
+        camera={{ position: cameraPosition, fov }}
+        dpr={[1, 1.2]}
+        frameloop="demand"
+        gl={{ antialias: true, alpha: true, powerPreference: 'low-power' }}
+      >
+        <ambientLight intensity={0.55} />
+        <directionalLight position={[5, 5, 5]} intensity={0.9} castShadow={false} />
+        <directionalLight position={[-5, -2, -5]} intensity={0.3} color="#4f8ef7" />
+
+        <Suspense fallback={<ModelFallback />}>
+          <Bounds fit clip margin={1.35}>
+            <Center>
+              <GLBModel
+                src={src}
+                scale={scale}
+                position={position}
+                rotation={rotation}
+                onLoaded={onLoaded}
+              />
+            </Center>
+            {children}
+          </Bounds>
+        </Suspense>
+
+        {enableControls && (
+          <OrbitControls
+            autoRotate={autoRotate}
+            autoRotateSpeed={autoRotateSpeed}
+            enablePan={false}
+            enableZoom={false}
+            minPolarAngle={Math.PI / 4}
+            maxPolarAngle={(Math.PI * 3) / 4}
+          />
+        )}
+      </Canvas>
+    </ErrorBoundary>
   );
 }
 

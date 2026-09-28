@@ -6,28 +6,57 @@ import styles from './Contact.module.css';
 
 /* Contact form */
 function ContactForm() {
-  const [status, setStatus] = useState<'idle' | 'sent'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('sent');
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    setStatus('sending');
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${contactLinks.email}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          _replyto: formData.get('email'),
+          message: formData.get('message'),
+          _subject: 'New message from your portfolio',
+          _honey: formData.get('_honey'),
+        }),
+      });
+      const result = await response.json() as { success?: boolean | string };
+      if (!response.ok || (result.success !== true && result.success !== 'true')) {
+        throw new Error('Submission was not accepted');
+      }
+      setStatus('sent');
+      form.reset();
+    } catch {
+      setStatus('error');
+    }
   };
 
   if (status === 'sent') {
     return (
       <motion.div
         className={styles.successMsg}
+        role="status"
+        aria-live="polite"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <span className={styles.successIcon} aria-hidden="true">✓</span>
-        <p>Message received. I will get back to you promptly.</p>
+        <p>Thanks — your message has been sent. I will get back to you soon.</p>
       </motion.div>
     );
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} noValidate>
+    <>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <input className={styles.honeypot} type="text" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <div className={styles.formRow}>
         <div className={styles.formField}>
           <label htmlFor="contact-name" className={styles.label}>Name</label>
@@ -65,10 +94,20 @@ function ContactForm() {
           required
         />
       </div>
-      <button type="submit" className={styles.submitBtn}>
-        Send Message →
+      <button type="submit" className={styles.submitBtn} disabled={status === 'sending'}>
+        {status === 'sending' ? 'Sending…' : 'Send Message →'}
       </button>
+      <p className={styles.privacyNote}>
+        Messages are delivered to Karthik by FormSubmit. The service may keep submissions for up to 30 days; please don’t include sensitive information.
+      </p>
     </form>
+      {status === 'error' && (
+        <p className={styles.formStatus} role="alert">
+          Your message could not be sent. Please try again or email me directly at{' '}
+          <a href={contactLinks.emailHref}>{contactLinks.email}</a>.
+        </p>
+      )}
+    </>
   );
 }
 

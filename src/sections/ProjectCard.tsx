@@ -1,7 +1,12 @@
-import { motion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import type { Project } from '../data/projects';
 import { ProjectSchematic } from '../components/schematics/ProjectSchematic';
+import { ProjectModelEffects } from '../components/three/ProjectModelEffects';
 import styles from './ProjectCard.module.css';
+
+const ModelViewer = lazy(() => import('../components/three/ModelViewer').then((module) => ({ default: module.ModelViewer })));
 
 /* ── Architecture pipeline visual ──────────────────────── */
 function PipelineSteps({ steps }: { steps: string[] }) {
@@ -30,9 +35,15 @@ interface ProjectCardProps {
   project: Project;
   index: number;
   reversed?: boolean;
+  activeModelId: string | null;
+  onSelectModel: (projectId: string | null) => void;
 }
 
-export function ProjectCard({ project, index: _index, reversed = false }: ProjectCardProps) {
+export function ProjectCard({ project, index: _index, reversed = false, activeModelId, onSelectModel }: ProjectCardProps) {
+  const activeVisual = activeModelId === project.id ? 'model' : 'blueprint';
+  const visualRef = useRef<HTMLDivElement>(null);
+  const visualInView = useInView(visualRef, { margin: '140px 0px', amount: 0.01 });
+
   return (
     <article
       id={`project-${project.id}`}
@@ -129,17 +140,63 @@ export function ProjectCard({ project, index: _index, reversed = false }: Projec
       </div>
 
       {/* Visual side - Dynamic Interactive Blueprint */}
-      <div className={styles.visualSide}>
-        <motion.div
+      <div className={styles.visualSide} ref={visualRef}>
+        <div className={styles.visualTabs} role="tablist" aria-label={`${project.shortTitle} visual views`}>
+          {project.model && (
+            <button
+              className={`${styles.visualTab} ${activeVisual === 'model' ? styles.activeVisualTab : ''}`}
+              id={`model-tab-${project.id}`}
+              type="button"
+              role="tab"
+              aria-selected={activeVisual === 'model'}
+              aria-controls={`model-panel-${project.id}`}
+              onClick={() => onSelectModel(project.id)}
+            >
+              3D Model
+            </button>
+          )}
+          <button
+            className={`${styles.visualTab} ${activeVisual === 'blueprint' ? styles.activeVisualTab : ''}`}
+            id={`blueprint-tab-${project.id}`}
+            type="button"
+            role="tab"
+            aria-selected={activeVisual === 'blueprint'}
+            aria-controls={`blueprint-panel-${project.id}`}
+            onClick={() => onSelectModel(null)}
+          >
+            Blueprint
+          </button>
+          {activeVisual === 'model' && <span className={styles.visualHint}>DRAG TO INSPECT</span>}
+          {activeVisual === 'blueprint' && <span className={styles.visualHint}>PROJECT ARCHITECTURE</span>}
+        </div>
+
+        {project.model && activeVisual === 'model' && (
+          <div className={styles.modelPanel} id={`model-panel-${project.id}`} role="tabpanel" aria-labelledby={`model-tab-${project.id}`}>
+            <div className={styles.modelViewport}>
+              <Suspense fallback={<div className={styles.viewerLoading}>Loading 3D viewer…</div>}>
+                <ModelViewer
+                  src={project.model}
+                  enableControls
+                  cameraPosition={[0, 0.4, 4.2]}
+                  fov={42}
+                />
+              </Suspense>
+            </div>
+            <ProjectModelEffects theme={project.visualTheme} active={visualInView} />
+          </div>
+        )}
+        {activeVisual === 'blueprint' && <motion.div
           className={styles.canvasWrap}
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          aria-hidden="true"
+          id={`blueprint-panel-${project.id}`}
+          role="tabpanel"
+          aria-labelledby={`blueprint-tab-${project.id}`}
         >
-          <ProjectSchematic theme={project.visualTheme} title={project.title} />
-        </motion.div>
+          <ProjectSchematic theme={project.visualTheme} title={project.title} active={visualInView} />
+        </motion.div>}
 
         <PipelineSteps steps={project.architecture} />
       </div>
