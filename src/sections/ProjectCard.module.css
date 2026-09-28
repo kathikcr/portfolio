@@ -1,9 +1,9 @@
 .card {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--sp-16);
+  gap: clamp(var(--sp-8), 5vw, var(--sp-12));
   align-items: start;
-  padding-block: var(--sp-32);
+  padding-block: clamp(var(--sp-12), 6vw, var(--sp-20));
   border-bottom: 1px solid var(--col-border);
   position: relative;
 }
@@ -311,7 +311,7 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .card { gap: var(--sp-12); }
+  .card { gap: var(--sp-8); }
   .textSide { position: static; }
   .canvasWrap { height: 300px; }
   .modelViewport { height: 250px; }
@@ -321,7 +321,7 @@
   .card {
     grid-template-columns: 1fr;
     gap: var(--sp-10);
-    padding-block: var(--sp-20);
+    padding-block: var(--sp-12);
   }
   .reversed { direction: ltr; }
   .visualSide { order: -1; }

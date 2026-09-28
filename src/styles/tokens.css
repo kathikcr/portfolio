@@ -7,8 +7,11 @@
   --col-bg:          #0a0a0b;          /* near-black surface    */
   --col-bg-subtle:   #0f0f11;          /* lifted card surface   */
   --col-bg-elevated: #141418;          /* modal/elevated surface*/
+  --col-bg-surface:  #0f0f11;
+  --col-card:        rgba(255,255,255,.025);
   --col-border:      rgba(255,255,255,.07);
   --col-border-mid:  rgba(255,255,255,.12);
+  --col-border-strong: rgba(255,255,255,.2);
 
   --col-text-primary:   #f0efee;       /* off-white             */
   --col-text-secondary: #8a8a96;       /* muted mid-gray        */
@@ -44,11 +47,13 @@
   --fw-regular: 400;
   --fw-medium:  500;
   --fw-semi:    600;
+  --fw-semibold: 600;
   --fw-bold:    700;
 
   --lh-tight:  1.1;
   --lh-snug:   1.25;
   --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
   --lh-loose:  1.75;
 
   --ls-tight:  -0.04em;
@@ -61,6 +66,7 @@
   --sp-2:  0.5rem;
   --sp-3:  0.75rem;
   --sp-4:  1rem;
+  --sp-5:  1.25rem;
   --sp-6:  1.5rem;
   --sp-8:  2rem;
   --sp-10: 2.5rem;
@@ -77,6 +83,7 @@
   --r-md:   8px;
   --r-lg:   16px;
   --r-xl:   24px;
+  --r-2xl:  32px;
   --r-full: 9999px;
 
   /* ── SHADOWS ─────────────────────────────────────────────── */

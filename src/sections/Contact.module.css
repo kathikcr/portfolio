@@ -21,7 +21,7 @@
   z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--sp-20);
+  gap: clamp(var(--sp-10), 5vw, var(--sp-16));
   align-items: start;
 }
 

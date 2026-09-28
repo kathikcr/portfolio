@@ -111,12 +111,12 @@ body {
 /* ── GLOBAL SECTION LAYOUT ───────────────────────────────── */
 .section {
   position: relative;
-  padding-block: var(--sp-48);
+  padding-block: clamp(5rem, 8vw, 7.5rem);
   overflow: hidden;
 }
 
 @media (max-width: 768px) {
-  .section { padding-block: var(--sp-24); }
+  .section { padding-block: clamp(4rem, 12vw, 5rem); }
 }
 
 /* ── CANVAS WRAPPER ─────────────────────────────────────── */

@@ -8,7 +8,7 @@
   grid-template-columns: 1.1fr 1fr;
   gap: var(--sp-16);
   align-items: center;
-  min-height: 80vh;
+  min-height: 0;
 }
 
 .text {
@@ -191,6 +191,7 @@
   .inner {
     grid-template-columns: 1fr;
     gap: var(--sp-12);
+    align-items: start;
   }
 }
 
